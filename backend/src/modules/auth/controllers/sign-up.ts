@@ -20,11 +20,7 @@ export default async function _SignUp(req: Request, res: Response) {
     sanitizedData;
 
   // Check if { Email } is available
-  let { email: exists } = await App.DB.User.findByPk(email, {
-    attributes: {
-      include: ['email'],
-    },
-  });
+  const exists = await App.DB.User.count({ where: { email } });
   if (exists) {
     return res.unprocessableEntity({
       error: 'Email already registered.',
@@ -61,7 +57,8 @@ export default async function _SignUp(req: Request, res: Response) {
       subject: 'Verify your email.',
       replyTo: [],
       body: {
-        text: `Verify your email by going to: ${verifyEmailUrl}`,
+        text: `Hi ${firstName} ${lastName},
+Verify your email by going to: ${verifyEmailUrl}`,
       },
     });
     message = 'Registration successful. Check your email to verify.';

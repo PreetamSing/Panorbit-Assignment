@@ -29,6 +29,7 @@ export class User extends Model {
     // define association here
   }
 }
+module.exports.User = User;
 
 module.exports = (sequelize: Sequelize, DataTypes: typeof TDataTypes) => {
   User.init(
@@ -89,3 +90,4 @@ export const createVerificationCode = (
     referenceCode: GenerateRandomStringOfLength(10),
   };
 };
+module.exports.createVerificationCode = createVerificationCode;
