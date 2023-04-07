@@ -1,0 +1,11 @@
+node_modules
+build
+logs
+.vscode
+.env
+*.env
+keys
+docs
+fcm-credentials.json
+package-lock.json
+.husky
