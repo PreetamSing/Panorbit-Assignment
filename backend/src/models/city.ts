@@ -5,6 +5,7 @@ import {
   Sequelize,
   CreationOptional,
 } from 'sequelize';
+import { Country } from './country';
 
 export class City extends Model {
   declare ID: CreationOptional<number>;
@@ -45,7 +46,7 @@ module.exports = (sequelize: Sequelize, DataTypes: typeof TDataTypes) => {
         defaultValue: '',
         references: {
           key: 'Code',
-          model: null,
+          model: Country,
         },
       },
       District: {
