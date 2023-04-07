@@ -31,6 +31,8 @@ export default async function _VerifyEmail(req: Request, res: Response) {
     });
   }
 
+  // @ts-ignore
+  user.otp = JSON.parse(user.otp);
   const verificationEmail = _.findLast(user.otp, [
     'codeType',
     OtpCodeType.EMAIL,

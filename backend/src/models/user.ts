@@ -2,7 +2,10 @@ import { Table, Models } from '@core/constants/table';
 import { Model, DataTypes as TDataTypes, Sequelize } from 'sequelize';
 import { OtpCodeType } from '@core/constants/otp-code-type';
 import { Gender } from '@core/constants/gender';
-import { GenerateRandomStringOfLength } from '@core/utils';
+import {
+  GenerateRandomNumberOfLength,
+  GenerateRandomStringOfLength,
+} from '@core/utils';
 
 export class User extends Model {
   declare email: string;
@@ -86,7 +89,7 @@ export const createVerificationCode = (
     code:
       codeType === OtpCodeType.EMAIL
         ? GenerateRandomStringOfLength(length)
-        : GenerateRandomStringOfLength(length),
+        : GenerateRandomNumberOfLength(length),
     referenceCode: GenerateRandomStringOfLength(10),
   };
 };

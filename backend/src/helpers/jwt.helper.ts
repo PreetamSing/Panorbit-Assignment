@@ -60,7 +60,7 @@ class JWTHelper {
     const { _id: _user } = payload;
 
     return jwt.sign(
-      null,
+      {},
       { key: this.privateKey, passphrase: this.PVT_KEY_SECRET },
       {
         algorithm: 'RS256',

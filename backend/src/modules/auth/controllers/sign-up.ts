@@ -2,7 +2,7 @@ import { App, Logger } from '@core/globals';
 import requestValidator from '@helpers/request-validator.helper';
 import { Request, Response } from 'express';
 import { SignUpBodyDTO } from '../dtos/sign-up.dto';
-import SESHelper from '@helpers/mail.helper';
+import MailHelper from '@helpers/mail.helper';
 import { createVerificationCode } from '@models/user';
 import _ from 'lodash';
 import { OtpCodeType } from '@core/constants/otp-code-type';
@@ -40,18 +40,21 @@ export default async function _SignUp(req: Request, res: Response) {
   // Create User Document & Create email verification code
   user.otp.push(createVerificationCode(OtpCodeType.EMAIL));
 
-  await App.DB.User.create(user);
-
   const verificationEmail = _.findLast(user.otp, [
     'codeType',
     OtpCodeType.EMAIL,
   ]);
 
+  // @ts-ignore
+  user.otp = JSON.stringify(user.otp);
+
+  await App.DB.User.create(user);
+
   let message: string;
   // Send verification email
   try {
     const verifyEmailUrl = `${App.Config.GATEWAY_URL}/api/v1/auth/verify-email?email=${email}&code=${verificationEmail.code}`;
-    await SESHelper.Send({
+    await MailHelper.Send({
       to: [email],
       from: App.Config.AWS_SES_EMAIL_ID,
       subject: 'Verify your email.',

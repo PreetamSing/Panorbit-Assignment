@@ -3,3 +3,8 @@ export enum OtpCodeType {
   EMAIL = 'email',
   MOBILE = 'mobile',
 }
+
+export enum SignInGrantType {
+  EMAIL = 'email',
+  OTP = 'otp',
+}
