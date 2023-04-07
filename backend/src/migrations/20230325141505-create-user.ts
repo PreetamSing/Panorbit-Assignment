@@ -39,6 +39,9 @@ module.exports = {
             type: DataTypes.JSON,
             defaultValue: [],
           },
+          email_verified_at: {
+            type: DataTypes.DATE,
+          },
           created_at: {
             allowNull: false,
             type: DataTypes.DATE,

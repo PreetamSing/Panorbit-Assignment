@@ -18,7 +18,9 @@
       "@config": ["core/config"],
       "@core/*": ["core/*"],
       "@mail/*": ["mails/*"],
-      "@helpers/*": ["helpers/*"]
+      "@helpers/*": ["helpers/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@modules/*": ["modules/*"],
     },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

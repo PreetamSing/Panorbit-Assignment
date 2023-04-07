@@ -5,8 +5,28 @@ services:
     image: mysql:8.0
     container_name: mysql_db
     ports:
-      - 3306:3306
+      - 3306:3306 # This port is exposed just for development environment.
     env_file:
       - ./database/.env
     volumes:
       - ./database/mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 2
+
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: ./Dockerfile
+    container_name: backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - "./backend/logs:/app/logs:rw"
+      - "./backend/src/keys:/app/src/keys:rw"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      mysql:
+        condition: service_healthy

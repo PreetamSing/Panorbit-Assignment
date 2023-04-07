@@ -7,6 +7,7 @@ export interface ConfigInterface {
   JWT_EXPIRY_SECS: number;
   AWS_SES_EMAIL_ID: string;
   SALT_ROUNDS: number;
+  GATEWAY_URL: string;
 }
 
 export default (): ConfigInterface => {
@@ -24,5 +25,7 @@ export default (): ConfigInterface => {
     JWT_EXPIRY_SECS: parseInt(process.env.JWT_EXPIRY_SECS),
     AWS_SES_EMAIL_ID: process.env.AWS_SES_EMAIL_ID,
     SALT_ROUNDS: parseInt(process.env.SALT_ROUNDS),
+
+    GATEWAY_URL: process.env[`${environment}_GATEWAY_URL`],
   };
 };

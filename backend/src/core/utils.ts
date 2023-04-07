@@ -1,3 +1,5 @@
+import { Logger } from '@core/globals';
+import { Request, Response, NextFunction } from 'express';
 import * as fs from 'fs';
 
 export const FileExistsSync = (FilePath) => {
@@ -23,4 +25,15 @@ export function GenerateRandomNumberOfLength(length) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+}
+
+export function Wrap(controller: CallableFunction) {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await controller(req, res, next);
+    } catch (error) {
+      Logger.error(error);
+      return res.internalServerError({ error });
+    }
+  };
 }

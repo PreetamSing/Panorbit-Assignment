@@ -1,9 +1,9 @@
 {
-  "development": {
+  "DEV": {
     "dialect": "mysql",
     "use_env_variable": "DEV_DB_URL"
   },
-  "production": {
+  "PROD": {
     "dialect": "mysql",
     "use_env_variable": "PROD_DB_URL"
   }

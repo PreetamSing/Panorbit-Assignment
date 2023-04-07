@@ -2,6 +2,7 @@ import { Table, Models } from '@core/constants/table';
 import { Model, DataTypes as TDataTypes, Sequelize } from 'sequelize';
 import { OtpCodeType } from '@core/constants/otp-code-type';
 import { Gender } from '@core/constants/gender';
+import { GenerateRandomStringOfLength } from '@core/utils';
 
 export class User extends Model {
   declare email: string;
@@ -11,10 +12,11 @@ export class User extends Model {
   declare last_name: string | null;
   declare gender: Gender;
   declare otp: {
-    code_type: OtpCodeType;
+    codeType: OtpCodeType;
     referenceCode: string;
     code: string;
   }[];
+  declare email_verified_at: Date | null;
   declare created_at: Date;
   declare updated_at: Date;
 
@@ -59,6 +61,9 @@ module.exports = (sequelize: Sequelize, DataTypes: typeof TDataTypes) => {
         type: DataTypes.JSON,
         defaultValue: [],
       },
+      email_verified_at: {
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize,
@@ -68,4 +73,19 @@ module.exports = (sequelize: Sequelize, DataTypes: typeof TDataTypes) => {
     }
   );
   return User;
+};
+
+export const createVerificationCode = (
+  codeType: OtpCodeType,
+  length?: number
+) => {
+  length = codeType === OtpCodeType.EMAIL ? 12 : 6;
+  return {
+    codeType,
+    code:
+      codeType === OtpCodeType.EMAIL
+        ? GenerateRandomStringOfLength(length)
+        : GenerateRandomStringOfLength(length),
+    referenceCode: GenerateRandomStringOfLength(10),
+  };
 };
