@@ -1,17 +1,22 @@
 import { Table, Models } from '@core/constants/table';
-import {
-  Model,
-  DataTypes as TDataTypes,
-  Sequelize,
-  CreationOptional,
-} from 'sequelize';
+import { Model, DataTypes as TDataTypes, Sequelize } from 'sequelize';
 
 export class Country extends Model {
-  declare ID: CreationOptional<number>;
+  declare Code: string;
   declare Name: string;
-  declare CountryCode: string;
-  declare District: string;
+  declare Continent: string;
+  declare Region: string;
+  declare SurfaceArea: number;
+  declare IndepYear?: number;
   declare Population: number;
+  declare LifeExpectancy?: number;
+  declare GNP?: number;
+  declare GNPOld?: number;
+  declare LocalName: string;
+  declare GovernmentForm: string;
+  declare HeadOfState?: string;
+  declare Capital?: number;
+  declare Code2: string;
 
   /**
    * Helper method for defining associations.
