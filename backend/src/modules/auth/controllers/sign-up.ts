@@ -50,7 +50,7 @@ export default async function _SignUp(req: Request, res: Response) {
   let message: string;
   // Send verification email
   try {
-    const verifyEmailUrl = `${App.Config.GATEWAY_URL}/auth/verify-email?email=${email}&code=${verificationEmail.code}`;
+    const verifyEmailUrl = `${App.Config.GATEWAY_URL}/api/v1/auth/verify-email?email=${email}&code=${verificationEmail.code}`;
     await SESHelper.Send({
       to: [email],
       from: App.Config.AWS_SES_EMAIL_ID,

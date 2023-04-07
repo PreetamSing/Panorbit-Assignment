@@ -9,6 +9,8 @@ router.get('/ping', (_req: Request, res: Response) => {
   return res.success()
 })
 
+router.get('/verify-email', Wrap(authController.VerifyEmail))
+
 router.post('/sign-up', Wrap(authController.Signup))
 
 export const authRouter = router
